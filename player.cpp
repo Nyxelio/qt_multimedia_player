@@ -51,6 +51,7 @@ void Player::handle()
     connect(m_nextBtn.data(), &QPushButton::clicked, this, &Player::nextClick);
     connect(m_prevBtn.data(), &QPushButton::clicked, this, &Player::previousClick);
     connect(m_chooseFileBtn.data(), &QPushButton::clicked, this, &Player::openFileClick);
+    connect(m_chooseFileBtn.data(), &QPushButton::clicked, this, &Player::chooseFile);
     connect(m_reduceBtn.data(), &QPushButton::clicked, this, &Player::reduceClick);
     connect(m_exitBtn.data(), &QPushButton::clicked, this, &Player::closeClick);
 
@@ -89,5 +90,10 @@ void Player::chooseFile() {
 
 //    QString filename = QFileDialog::getSaveFileName(this, "Save file", m_file_opened->fileName(),
 //                                                    "Text files (*.txt);; C++ files (*.cpp, *.hpp, *.h)" );
+
+}
+
+Player::~Player()
+{
 
 }
