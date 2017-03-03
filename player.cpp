@@ -25,25 +25,20 @@ void Player::init()
     m_chooseFileBtn = new QPushButton();
     m_reduceBtn = new QPushButton();
     m_exitBtn = new QPushButton();
-<<<<<<< HEAD
-
     m_btnContainer->addWidget(m_startPauseBtn);
     m_btnContainer->addWidget(m_stopBtn);
 
 
-
-=======
->>>>>>> 5a725054572587ec3f4ecd4a2685702a16921f87
 }
 
 void Player::handle()
 {
-<<<<<<< HEAD
     connect(m_startPauseBtn.data(), &QPushButton::clicked, m_mediaPlayer.data(), &QMediaPlayer::play);
     connect(m_stopBtn.data(), &QPushButton::clicked, m_mediaPlayer.data(), &QMediaPlayer::stop);
     connect(m_nextBtn.data(), &QPushButton::clicked, this, &Player::nextClick);
     connect(m_prevBtn.data(), &QPushButton::clicked, this, &Player::previousClick);
     connect(m_chooseFileBtn.data(), &QPushButton::clicked, this, &Player::openFileClick);
+    connect(m_chooseFileBtn.data(), &QPushButton::clicked, this, &Player::chooseFile);
     connect(m_reduceBtn.data(), &QPushButton::clicked, this, &Player::reduceClick);
     connect(m_exitBtn.data(), &QPushButton::clicked, this, &Player::closeClick);
 
@@ -73,17 +68,17 @@ void Player::closeClick()
 
 }
 
-Player::~Player()
-{
-=======
-    QObject::connect(m_chooseFileBtn, &QPushButton::clicked, this, &Player::chooseFile);
-}
 
 void Player::chooseFile() {
 
 //    QString filename = QFileDialog::getSaveFileName(this, "Save file", m_file_opened->fileName(),
 //                                                    "Text files (*.txt);; C++ files (*.cpp, *.hpp, *.h)" );
->>>>>>> 5a725054572587ec3f4ecd4a2685702a16921f87
+
 
 //    QString filename = QFileDialog::getOpenFileName(this, tr("Open multimedia file", "/home", tr("")))
+}
+
+Player::~Player()
+{
+
 }
