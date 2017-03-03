@@ -10,6 +10,8 @@
 #include <QPainter>
 #include <QLabel>
 #include <QTime>
+#include <QApplication>
+#include <QDesktopWidget>
 
 Player::Player(QWidget *parent)
     : QWidget(parent)
@@ -38,6 +40,8 @@ void Player::init()
     m_reduceBtn->move(QPoint(440, 0));
     m_exitBtn = new CloseButton(this);
     m_exitBtn->move(QPoint(470, 0));
+    m_fullscreenBtn = new FullScreenButton(this);
+    m_fullscreenBtn->move(QPoint(410, 0));
 
     m_playlist = new QMediaPlaylist;
 
@@ -80,7 +84,7 @@ void Player::handle()
     connect(m_reduceBtn.data(), &QPushButton::clicked, this, &Player::lower);
     connect(m_exitBtn.data(), &QPushButton::clicked, this, &Player::close);
 
-    /*connect(m_fullscreenBtn.data(), &QPushButton::clicked, this, &Player::toggleFullscreen);*/
+    connect(m_fullscreenBtn, &QPushButton::clicked, this, &Player::toggleFullscreen);
 
     connect(m_slider, &QSlider::sliderMoved, this, &Player::setPosition);
 
@@ -91,16 +95,25 @@ void Player::handle()
 void Player::nextClick()
 {
     m_playlist->setCurrentIndex(m_playlist->currentIndex()+1);
+    m_mediaPlayer->play();
 }
 
 void Player::stopClick()
 {
     m_mediaPlayer->stop();
+    m_startPauseBtn->isActive = false;
+    m_startPauseBtn->update();
 }
 
 void Player::previousClick()
 {
-    m_playlist->setCurrentIndex(m_playlist->currentIndex()-1);
+    int cpt = m_playlist->mediaCount();
+    if (m_playlist->currentIndex() != 0) {
+        m_playlist->setCurrentIndex(m_playlist->currentIndex()-1);
+    } else {
+        m_playlist->setCurrentIndex(cpt - 1);
+    }
+    m_mediaPlayer->play();
 }
 
 void Player::openFileClick()
@@ -116,7 +129,47 @@ Player::~Player()
 
 void Player::toggleFullscreen() {
     m_fullscreenStatus = !m_fullscreenStatus;
-    m_videoDisplay->setFullScreen(m_fullscreenStatus);
+    if (m_fullscreenStatus) {
+        this->move(0, 0);
+        QRect rec = QApplication::desktop()->screenGeometry();
+        int height = rec.height();
+        int width = rec.width();
+        setFixedSize(width, height);
+        m_startPauseBtn->move(QPoint(0, height - 130));
+        m_prevBtn->move(QPoint(100, height - 105));
+        m_stopBtn->move(QPoint(150, height - 105));
+        m_nextBtn->move(200, height - 105);
+        m_chooseFileBtn->move(QPoint(250, height - 105));
+        m_reduceBtn->move(QPoint(width - 60, 0));
+        m_exitBtn->move(QPoint(width - 30, 0));
+        m_fullscreenBtn->move(QPoint(width - 90, 0));
+        m_videoDisplay->setFixedSize(width - 125, height - 165);
+        m_videoDisplay->move(80, 30);
+        m_slider->setFixedSize(width - 225, 25);
+        m_slider->move(QPoint(140, height - 135));
+        m_durationPosition->setFixedSize(50, 25);
+        m_durationPosition->move(QPoint(85, height - 135));
+        m_durationEnd->setFixedSize(50, 25);
+        m_durationEnd->move(QPoint(width - 65, height - 135));
+    } else {
+        setFixedSize(500, 500);
+        m_startPauseBtn->move(QPoint(0, 400));
+        m_prevBtn->move(QPoint(100, 425));
+        m_stopBtn->move(QPoint(150, 425));
+        m_nextBtn->move(200, 425);
+        m_chooseFileBtn->move(QPoint(250, 425));
+        m_reduceBtn->move(QPoint(440, 0));
+        m_exitBtn->move(QPoint(470, 0));
+        m_fullscreenBtn->move(QPoint(410, 0));
+        m_videoDisplay->setFixedSize(375, 375);
+        m_videoDisplay->move(80, 30);
+        m_slider->setFixedSize(275, 25);
+        m_slider->move(QPoint(140, 405));
+        m_durationPosition->setFixedSize(50, 25);
+        m_durationPosition->move(QPoint(85, 405));
+        m_durationEnd->setFixedSize(50, 25);
+        m_durationEnd->move(QPoint(435, 405));
+    }
 }
 
 void Player::setPosition(int position){
@@ -137,6 +190,11 @@ void Player::loadPlaylist(QStringList list)
     m_playlist->setCurrentIndex(1);
 
     m_mediaPlayer->setPlaylist(m_playlist);
+
+    if (list.count() > 0) {
+        m_startPauseBtn->isActive = false;
+        m_startPauseBtn->update();
+    }
 }
 
 void Player::durationChanged(int duration)
@@ -165,5 +223,13 @@ void Player::paintEvent(QPaintEvent *) {
     painter.setPen(pen);
     painter.setBrush(QBrush(QColor(255, 255, 255)));
 
-    painter.drawRect(QRect(50, 15, 435, 435));
+
+    if (m_fullscreenStatus) {
+        QRect rec = QApplication::desktop()->screenGeometry();
+        int height = rec.height();
+        int width = rec.width();
+        painter.drawRect(QRect(50, 15, width - 65, height - 95));
+    } else {
+        painter.drawRect(QRect(50, 15, 435, 435));
+    }
 }

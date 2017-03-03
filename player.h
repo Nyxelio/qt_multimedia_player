@@ -10,6 +10,7 @@
 #include "openfilebutton.h"
 #include "closebutton.h"
 #include "reducebutton.h"
+#include "fullscreenbutton.h"
 
 class QPushButton;
 class QMediaPlayer;
@@ -37,6 +38,7 @@ private :
     QPointer<QHBoxLayout> m_btnContainer;
     QPointer<QMediaPlayer> m_mediaPlayer;
     QPointer<QMediaPlaylist> m_playlist;
+    QPointer<FullScreenButton> m_fullscreenBtn;
     QPointer<ReduceButton> m_reduceBtn;
     QPointer<CloseButton> m_exitBtn;
     QPointer<OpenFileButton> m_chooseFileBtn;
@@ -44,7 +46,6 @@ private :
     QPointer<NextButton> m_nextBtn;
     QPointer<StopButton> m_stopBtn;
     QPointer<PlayPauseButton> m_startPauseBtn;
-    QPointer<QPushButton> m_fullscreenBtn;
     QPointer<QVideoWidget> m_videoDisplay;
 
     QPointer<QSlider> m_slider;

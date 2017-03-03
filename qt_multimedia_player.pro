@@ -34,7 +34,8 @@ SOURCES += main.cpp\
     nextbutton.cpp \
     openfilebutton.cpp \
     closebutton.cpp \
-    reducebutton.cpp
+    reducebutton.cpp \
+    fullscreenbutton.cpp
 
 HEADERS  += player.h \
     playpausebutton.h \
@@ -43,7 +44,8 @@ HEADERS  += player.h \
     nextbutton.h \
     openfilebutton.h \
     closebutton.h \
-    reducebutton.h
+    reducebutton.h \
+    fullscreenbutton.h
 
 RESOURCES += \
     resources.qrc
