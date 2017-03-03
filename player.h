@@ -6,6 +6,7 @@
 
 class QPushButton;
 class QMediaPlayer;
+class QStringList;
 
 class Player : public QWidget
 {

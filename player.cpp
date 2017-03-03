@@ -2,6 +2,7 @@
 #include <QMediaPlayer>
 #include <QPushButton>
 #include <QFileDialog>
+#include <QStringList>
 
 Player::Player(QWidget *parent)
     : QWidget(parent)
@@ -36,8 +37,7 @@ void Player::handle()
 
 void Player::chooseFile() {
 
-//    QString filename = QFileDialog::getSaveFileName(this, "Save file", m_file_opened->fileName(),
-//                                                    "Text files (*.txt);; C++ files (*.cpp, *.hpp, *.h)" );
+    QStringList list_filename = QFileDialog::getOpenFileNames(this, "Open multimedia file", QDir::homePath(),
+                                                    "Videos files (*.mp4 *.mpg *.gif);; Audio files (*.waw *.mp3 *.flac)");
 
-//    QString filename = QFileDialog::getOpenFileName(this, tr("Open multimedia file", "/home", tr("")))
 }
