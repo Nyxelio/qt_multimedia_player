@@ -27,12 +27,12 @@ void Player::init()
     m_startPauseBtn = new PlayPauseButton();
     //m_startPauseBtn = new PlayPauseButton(this);
     //m_startPauseBtn->move(QPoint(0, 400));
-    m_stopBtn = new QPushButton("stop");
+    m_stopBtn = new QPushButton();
     m_nextBtn = new QPushButton();
     m_prevBtn = new QPushButton();
-    m_chooseFileBtn = new QPushButton("Open files");
-    m_reduceBtn = new QPushButton("Reduce window");
-    m_exitBtn = new QPushButton("Close Window");
+    m_chooseFileBtn = new QPushButton(tr("&btn_open_files"));
+    m_reduceBtn = new QPushButton("reduce window");
+    m_exitBtn = new QPushButton("close window");
     m_videoPlaylistContainer = new QHBoxLayout();
 
     m_playlist = new QMediaPlaylist;
@@ -101,7 +101,7 @@ void Player::previousClick()
 void Player::openFileClick()
 {
     QStringList list_filename = QFileDialog::getOpenFileNames(this, "Open multimedia file", QDir::homePath(),
-                                                    "Videos files (*.avi *.mp4 *.mpg *.gif);; Audio files (*.waw *.mp3 *.flac)");
+                                                    tr("&video_files (*.avi *.mp4 *.mpg *.gif);; Audio files (*.waw *.mp3 *.flac)"));
     loadPlaylist(list_filename);
 }
 
