@@ -5,15 +5,10 @@
 #include <QtDebug>
 #include <QtCore>
 
-PlayPauseButton::PlayPauseButton()
-{
+PlayPauseButton::PlayPauseButton(QWidget *parent) : QPushButton(parent) {
     setFixedSize(100, 100);
     isActive = false;
     insideButton = false;
-}
-
-PlayPauseButton::PlayPauseButton(QWidget *parent) : QPushButton(parent) {
-    setFixedSize(100, 100);
 }
 
 void PlayPauseButton::paintEvent(QPaintEvent *) {
