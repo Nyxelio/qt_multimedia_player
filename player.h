@@ -13,6 +13,7 @@ class QVideoWidget;
 class QVBoxLayout;
 class QHBoxLayout;
 class QSlider;
+class QLabel;
 
 class Player : public QWidget
 {
@@ -26,8 +27,8 @@ public:
     void loadPlaylist(QStringList);
 
 private :
-    QPointer<QVBoxLayout> m_vContainer;
-    QPointer<QHBoxLayout> m_btnContainer, m_videoPlaylistContainer;
+    QPointer<QVBoxLayout> m_vContainer, m_videoPlaylistContainer;
+    QPointer<QHBoxLayout> m_btnContainer;
     QPointer<QMediaPlayer> m_mediaPlayer;
     QPointer<QMediaPlaylist> m_playlist;
     QPointer<QPushButton> m_stopBtn, m_nextBtn, m_prevBtn, m_chooseFileBtn, m_reduceBtn, m_exitBtn;
@@ -37,6 +38,8 @@ private :
 
     QPointer<QSlider> m_slider;
     bool m_fullscreenStatus;
+    QPointer<QLabel> m_durationPosition;
+    QPointer<QLabel> m_durationEnd;
 
 private slots:
     void nextClick();
