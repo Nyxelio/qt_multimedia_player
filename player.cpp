@@ -2,6 +2,7 @@
 #include <QMediaPlayer>
 #include <QPushButton>
 #include <QFileDialog>
+#include <QStringList>
 #include <QVideoWidget>
 #include <QHBoxLayout>
 #include <QSlider>
@@ -25,7 +26,7 @@ void Player::init()
     m_stopBtn = new QPushButton("stop");
     m_nextBtn = new QPushButton();
     m_prevBtn = new QPushButton();
-    m_chooseFileBtn = new QPushButton();
+    m_chooseFileBtn = new QPushButton("Open files");
     m_reduceBtn = new QPushButton();
     m_exitBtn = new QPushButton();
 
@@ -46,6 +47,7 @@ void Player::init()
 
    m_btnContainer->addWidget(m_startPauseBtn);
    m_btnContainer->addWidget(m_stopBtn);
+   m_btnContainer->addWidget(m_chooseFileBtn);
 
    //TODO REMEMBER TO ADD slider
    m_btnContainer->addWidget(m_slider);
@@ -59,7 +61,6 @@ void Player::handle()
     connect(m_nextBtn.data(), &QPushButton::clicked, this, &Player::nextClick);
     connect(m_prevBtn.data(), &QPushButton::clicked, this, &Player::previousClick);
     connect(m_chooseFileBtn.data(), &QPushButton::clicked, this, &Player::openFileClick);
-    connect(m_chooseFileBtn.data(), &QPushButton::clicked, this, &Player::chooseFile);
     connect(m_reduceBtn.data(), &QPushButton::clicked, this, &Player::reduceClick);
     connect(m_exitBtn.data(), &QPushButton::clicked, this, &Player::closeClick);
 
@@ -84,7 +85,8 @@ void Player::previousClick()
 
 void Player::openFileClick()
 {
-
+    QStringList list_filename = QFileDialog::getOpenFileNames(this, "Open multimedia file", QDir::homePath(),
+                                                    "Videos files (*.mp4 *.mpg *.gif);; Audio files (*.waw *.mp3 *.flac)");
 }
 
 void Player::reduceClick()
@@ -99,13 +101,6 @@ void Player::closeClick()
 
 Player::~Player()
 {
-}
-
-void Player::chooseFile() {
-
-//    QString filename = QFileDialog::getSaveFileName(this, "Save file", m_file_opened->fileName(),
-//                                                    "Text files (*.txt);; C++ files (*.cpp, *.hpp, *.h)" );
-
 }
 
 void Player::toggleFullscreen() {
