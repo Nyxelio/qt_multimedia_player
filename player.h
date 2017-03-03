@@ -7,6 +7,8 @@
 class QPushButton;
 class QMediaPlayer;
 class QVideoWidget;
+class QVBoxLayout;
+class QHBoxLayout;
 
 class Player : public QWidget
 {

@@ -3,6 +3,7 @@
 #include <QPushButton>
 #include <QFileDialog>
 #include <QVideoWidget>
+#include <QHBoxLayout>
 
 Player::Player(QWidget *parent)
     : QWidget(parent)
@@ -90,10 +91,5 @@ void Player::chooseFile() {
 
 //    QString filename = QFileDialog::getSaveFileName(this, "Save file", m_file_opened->fileName(),
 //                                                    "Text files (*.txt);; C++ files (*.cpp, *.hpp, *.h)" );
-
-}
-
-Player::~Player()
-{
 
 }
