@@ -42,7 +42,7 @@ void Player::init()
     m_fullscreenStatus = false;
 
     // Add playlist component
-    m_mediaPlayer->setPlaylist(m_playlist);
+    //m_mediaPlayer->setPlaylist(m_playlist);
 
     m_slider = new QSlider(Qt::Horizontal);
     m_slider->setRange(0,0);
@@ -127,8 +127,10 @@ void Player::loadPlaylist(QStringList list)
 {
     foreach (QString str, list) {
         m_playlist->addMedia(QUrl::fromLocalFile(str));
-        m_playlist->setCurrentIndex(1);
     }
+    m_playlist->setCurrentIndex(1);
+
+    m_mediaPlayer->setPlaylist(m_playlist);
 }
 
 void Player::durationChanged(int duration)
