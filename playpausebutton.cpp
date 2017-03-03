@@ -31,6 +31,9 @@ void PlayPauseButton::paintEvent(QPaintEvent *) {
 
     painter.setBrush(QBrush(QColor(200, 200, 200)));
 
+    pen.setWidth(1);
+    painter.setPen(pen);
+
     if (!isActive) {
         painter.drawPolygon(pointsForPlay, 3);
     } else {

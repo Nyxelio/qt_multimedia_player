@@ -1,15 +1,15 @@
-#include "stopbutton.h"
+#include "openfilebutton.h"
 #include <QPainter>
 #include <QColor>
 #include <QMouseEvent>
 #include <QtCore>
 
-StopButton::StopButton(QWidget *parent) : QPushButton(parent) {
+OpenFileButton::OpenFileButton(QWidget *parent) : QPushButton(parent) {
     setFixedSize(50, 50);
     insideButton = false;
 }
 
-void StopButton::paintEvent(QPaintEvent *) {
+void OpenFileButton::paintEvent(QPaintEvent *) {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
     painter.translate(QPointF(width() / 2, height() / 2));
@@ -29,13 +29,13 @@ void StopButton::paintEvent(QPaintEvent *) {
     painter.drawRect(QRect(-8, -8, 16, 16));
 }
 
-void StopButton::mousePressEvent(QMouseEvent *e) {
+void OpenFileButton::mousePressEvent(QMouseEvent *e) {
     if (qSqrt(qPow(e->x() - 50, 2) + qPow(e->y() - 50, 2)) < 20) {
         insideButton = true;
     }
 }
 
-void StopButton::mouseReleaseEvent(QMouseEvent *e) {
+void OpenFileButton::mouseReleaseEvent(QMouseEvent *e) {
     if (insideButton && (qSqrt(qPow(e->x() - 50, 2) + qPow(e->y() - 50, 2)) < 20)) {
         emit(clicked(true));
         update();

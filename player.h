@@ -5,6 +5,8 @@
 #include <QPointer>
 #include "playpausebutton.h"
 #include "stopbutton.h"
+#include "previousbutton.h"
+#include "nextbutton.h"
 
 class QPushButton;
 class QMediaPlayer;
@@ -14,6 +16,7 @@ class QVideoWidget;
 class QVBoxLayout;
 class QHBoxLayout;
 class QSlider;
+class QLabel;
 
 class Player : public QWidget
 {
@@ -27,11 +30,13 @@ public:
     void loadPlaylist(QStringList);
 
 private :
-    QPointer<QVBoxLayout> m_vContainer;
-    QPointer<QHBoxLayout> m_btnContainer, m_videoPlaylistContainer;
+    QPointer<QVBoxLayout> m_vContainer, m_videoPlaylistContainer;
+    QPointer<QHBoxLayout> m_btnContainer;
     QPointer<QMediaPlayer> m_mediaPlayer;
     QPointer<QMediaPlaylist> m_playlist;
-    QPointer<QPushButton> m_nextBtn, m_prevBtn, m_chooseFileBtn, m_reduceBtn, m_exitBtn;
+    QPointer<QPushButton> m_chooseFileBtn, m_reduceBtn, m_exitBtn;
+    QPointer<PreviousButton> m_prevBtn;
+    QPointer<NextButton> m_nextBtn;
     QPointer<StopButton> m_stopBtn;
     QPointer<PlayPauseButton> m_startPauseBtn;
     QPointer<QPushButton> m_fullscreenBtn;
@@ -39,6 +44,8 @@ private :
 
     QPointer<QSlider> m_slider;
     bool m_fullscreenStatus;
+    QPointer<QLabel> m_durationPosition;
+    QPointer<QLabel> m_durationEnd;
 
 private slots:
     void nextClick();
