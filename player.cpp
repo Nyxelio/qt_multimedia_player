@@ -7,6 +7,7 @@
 #include <QMediaPlaylist>
 #include <QHBoxLayout>
 #include <QSlider>
+#include <QLabel>
 
 
 Player::Player(QWidget *parent)
@@ -33,7 +34,7 @@ void Player::init()
     m_chooseFileBtn = new QPushButton("Open files");
     m_reduceBtn = new QPushButton("Reduce window");
     m_exitBtn = new QPushButton("Close Window");
-    m_videoPlaylistContainer = new QHBoxLayout();
+    m_videoPlaylistContainer = new QVBoxLayout();
 
     m_playlist = new QMediaPlaylist;
 
@@ -46,13 +47,16 @@ void Player::init()
 
     m_slider = new QSlider(Qt::Horizontal);
     m_slider->setRange(0,0);
-    //TODO REMEMBER TO ADD videoWidget
-    m_videoPlaylistContainer->addWidget(m_videoDisplay);
+    m_durationPosition = new QLabel();
+    m_durationEnd = new QLabel("--:--");
+
+   //TODO REMEMBER TO ADD videoWidget
+   m_videoPlaylistContainer->addWidget(m_videoDisplay);
+   m_videoPlaylistContainer->addWidget(m_slider);
 
    //output
    m_mediaPlayer->setVideoOutput(m_videoDisplay);
 
-   //TODO TO SHOW VIDEO
    m_videoDisplay->show();
 
    m_btnContainer->addWidget(m_startPauseBtn);
@@ -61,12 +65,10 @@ void Player::init()
    m_btnContainer->addWidget(m_exitBtn);
    m_btnContainer->addWidget(m_reduceBtn);
 
-   //TODO REMEMBER TO ADD slider
-   m_btnContainer->addWidget(m_slider);
-
 
    m_vContainer->addLayout(m_videoPlaylistContainer);
    m_vContainer->addLayout(m_btnContainer);
+
 }
 
 void Player::handle()
@@ -81,7 +83,6 @@ void Player::handle()
 
     connect(m_fullscreenBtn.data(), &QPushButton::clicked, this, &Player::toggleFullscreen);
 
-    connect(m_slider, &QSlider::sliderMoved, this, &Player::setPosition);
     connect(m_slider, &QSlider::sliderMoved, this, &Player::setPosition);
 
     connect(m_mediaPlayer, &QMediaPlayer::positionChanged, this, &Player::positionChanged);
@@ -101,7 +102,8 @@ void Player::previousClick()
 void Player::openFileClick()
 {
     QStringList list_filename = QFileDialog::getOpenFileNames(this, "Open multimedia file", QDir::homePath(),
-                                                    "Videos files (*.avi *.mp4 *.mpg *.gif);; Audio files (*.waw *.mp3 *.flac)");
+                    "Videos files (*.avi *.mp4 *.mpg *.gif, *.ogv);; Audio files (*.waw *.mp3 *.flac, *.ogg)");
+
     loadPlaylist(list_filename);
 }
 
@@ -135,11 +137,13 @@ void Player::loadPlaylist(QStringList list)
 
 void Player::durationChanged(int duration)
 {
+    m_durationEnd = new QLabel("--:--");
     m_slider->setRange(0, duration);
 }
 
 void Player::playPauseClick()
 {
+
     if (m_startPauseBtn->isActive) {
         m_mediaPlayer->pause();
     } else {
