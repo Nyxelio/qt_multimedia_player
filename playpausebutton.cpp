@@ -44,4 +44,5 @@ void PlayPauseButton::mouseReleaseEvent(QMouseEvent *e) {
     if (insideButton && (qSqrt(qPow(e->x() - 50, 2) + qPow(e->y() - 50, 2)) < 40)) {
         emit(clicked(true));
     }
+    insideButton = false;
 }
