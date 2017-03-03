@@ -30,6 +30,7 @@ void Player::init()
 
     m_videoDisplay = new QVideoWidget();
 
+    m_fullscreenStatus = false;
 
     //TODO REMEMBER TO ADD videoWidget
     //layout->addWidget(m_videoDisplay);
@@ -56,6 +57,7 @@ void Player::handle()
     connect(m_reduceBtn.data(), &QPushButton::clicked, this, &Player::reduceClick);
     connect(m_exitBtn.data(), &QPushButton::clicked, this, &Player::closeClick);
 
+    connect(m_fullscreenBtn.data(), &QPushButton::clicked, this, &Player::toggleFullscreen);
 }
 void Player::nextClick()
 {
@@ -84,7 +86,6 @@ void Player::closeClick()
 
 Player::~Player()
 {
-    QObject::connect(m_chooseFileBtn, &QPushButton::clicked, this, &Player::chooseFile);
 }
 
 void Player::chooseFile() {
@@ -92,4 +93,9 @@ void Player::chooseFile() {
 //    QString filename = QFileDialog::getSaveFileName(this, "Save file", m_file_opened->fileName(),
 //                                                    "Text files (*.txt);; C++ files (*.cpp, *.hpp, *.h)" );
 
+}
+
+void Player::toggleFullscreen() {
+    m_fullscreenStatus = !m_fullscreenStatus;
+    m_videoDisplay->setFullScreen(m_fullscreenStatus);
 }
