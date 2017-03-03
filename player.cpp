@@ -184,6 +184,8 @@ void Player::positionChanged(int position)
 
 void Player::loadPlaylist(QStringList list)
 {
+    m_playlist->clear();
+
     foreach (QString str, list) {
         m_playlist->addMedia(QUrl::fromLocalFile(str));
     }
