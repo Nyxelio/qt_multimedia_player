@@ -8,9 +8,21 @@
 PlayPauseButton::PlayPauseButton()
 {
     setFixedSize(100, 100);
+    isActive = false;
+    insideButton = false;
+}
+
+PlayPauseButton::PlayPauseButton(QWidget *parent) : QPushButton(parent) {
+    setFixedSize(100, 100);
 }
 
 void PlayPauseButton::paintEvent(QPaintEvent *) {
+
+    static const QPointF pointsForPlay[3] = {
+        QPointF(-15.0, -20.0),
+        QPointF(22.0, 0.0),
+        QPointF(-15.0, 20.0)
+    };
 
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
@@ -23,15 +35,14 @@ void PlayPauseButton::paintEvent(QPaintEvent *) {
 
     painter.drawEllipse(QRectF(-40, -40, 80, 80));
 
-    static const QPointF points[3] = {
-        QPointF(-15.0, -20.0),
-        QPointF(22.0, 0.0),
-        QPointF(-15.0, 20.0)
-    };
-
     painter.setBrush(QBrush(QColor(200, 200, 200)));
-    painter.drawPolygon(points, 3);
 
+    if (!isActive) {
+        painter.drawPolygon(pointsForPlay, 3);
+    } else {
+        painter.drawRect(QRect(-15, -20, 10, 40));
+        painter.drawRect(QRect(5, -20, 10, 40));
+    }
 }
 
 void PlayPauseButton::mousePressEvent(QMouseEvent *e) {
@@ -43,6 +54,9 @@ void PlayPauseButton::mousePressEvent(QMouseEvent *e) {
 void PlayPauseButton::mouseReleaseEvent(QMouseEvent *e) {
     if (insideButton && (qSqrt(qPow(e->x() - 50, 2) + qPow(e->y() - 50, 2)) < 40)) {
         emit(clicked(true));
+        isActive = !isActive;
+
+        update();
     }
     insideButton = false;
 }

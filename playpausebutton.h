@@ -8,6 +8,10 @@ class PlayPauseButton : public QPushButton
     Q_OBJECT
 public:
     PlayPauseButton();
+    PlayPauseButton(QWidget *parent = Q_NULLPTR);
+    bool isActive;
+
+private:
     bool insideButton;
 
 protected:
