@@ -28,10 +28,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         player.cpp \
-    playpausebutton.cpp
+    playpausebutton.cpp \
+    stopbutton.cpp \
+    previousbutton.cpp \
+    nextbutton.cpp \
+    openfilebutton.cpp
 
 HEADERS  += player.h \
-    playpausebutton.h
+    playpausebutton.h \
+    stopbutton.h \
+    previousbutton.h \
+    nextbutton.h \
+    openfilebutton.h
 
 RESOURCES += \
     resources.qrc
