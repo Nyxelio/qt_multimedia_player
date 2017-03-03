@@ -149,9 +149,7 @@ void Player::playPauseClick()
 
     if (m_startPauseBtn->isActive) {
         m_mediaPlayer->pause();
-        qDebug() << "1";
     } else {
         m_mediaPlayer->play();
-        qDebug() << "2";
     }
 }
