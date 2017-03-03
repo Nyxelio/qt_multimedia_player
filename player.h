@@ -6,7 +6,6 @@
 
 class QPushButton;
 class QMediaPlayer;
-
 class QVideoWidget;
 
 class Player : public QWidget
@@ -20,9 +19,18 @@ public:
     void handle();
 
 private :
+    QPointer<QVBoxLayout> m_vContainer;
+    QPointer<QHBoxLayout> m_btnContainer;
     QPointer<QMediaPlayer> m_mediaPlayer;
     QPointer<QPushButton> m_startPauseBtn, m_stopBtn, m_nextBtn, m_prevBtn, m_chooseFileBtn, m_reduceBtn, m_exitBtn;
     QPointer<QVideoWidget> m_videoDisplay;
+
+private slots:
+    void nextClick();
+    void previousClick();
+    void openFileClick();
+    void reduceClick();
+    void closeClick();
 
 protected slots:
     void chooseFile();
