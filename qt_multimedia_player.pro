@@ -27,3 +27,10 @@ SOURCES += main.cpp\
         player.cpp
 
 HEADERS  += player.h
+
+RESOURCES += \
+    resources.qrc
+
+DISTFILES += \
+    lightStyle.qss \
+    darkStyle.qss
