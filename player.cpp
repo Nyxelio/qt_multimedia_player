@@ -28,8 +28,8 @@ void Player::init()
     //m_startPauseBtn = new PlayPauseButton(this);
     //m_startPauseBtn->move(QPoint(0, 400));
     m_stopBtn = new QPushButton("stop");
-    m_nextBtn = new QPushButton();
-    m_prevBtn = new QPushButton();
+    m_nextBtn = new QPushButton(">>");
+    m_prevBtn = new QPushButton("<<");
     m_chooseFileBtn = new QPushButton("Open files");
     m_reduceBtn = new QPushButton("Reduce window");
     m_exitBtn = new QPushButton("Close Window");
@@ -55,8 +55,11 @@ void Player::init()
    //TODO TO SHOW VIDEO
    m_videoDisplay->show();
 
+
    m_btnContainer->addWidget(m_startPauseBtn);
    m_btnContainer->addWidget(m_stopBtn);
+   m_btnContainer->addWidget(m_prevBtn);
+   m_btnContainer->addWidget(m_nextBtn);
    m_btnContainer->addWidget(m_chooseFileBtn);
    m_btnContainer->addWidget(m_exitBtn);
    m_btnContainer->addWidget(m_reduceBtn);
@@ -90,12 +93,12 @@ void Player::handle()
 }
 void Player::nextClick()
 {
-
+    m_playlist->setCurrentIndex(m_playlist->currentIndex()+1);
 }
 
 void Player::previousClick()
 {
-
+    m_playlist->setCurrentIndex(m_playlist->currentIndex()-1);
 }
 
 void Player::openFileClick()
@@ -142,7 +145,9 @@ void Player::playPauseClick()
 {
     if (m_startPauseBtn->isActive) {
         m_mediaPlayer->pause();
+        qDebug() << "1";
     } else {
         m_mediaPlayer->play();
+        qDebug() << "2";
     }
 }
