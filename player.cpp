@@ -219,9 +219,9 @@ void Player::paintEvent(QPaintEvent *) {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
 
-    QPen pen(QColor(255, 255, 255));
+    QPen pen(QColor(79, 82, 94));
     painter.setPen(pen);
-    painter.setBrush(QBrush(QColor(255, 255, 255)));
+    painter.setBrush(QBrush(QColor(79, 82, 94)));
 
 
     if (m_fullscreenStatus) {
