@@ -119,7 +119,7 @@ void Player::previousClick()
 void Player::openFileClick()
 {
     QStringList list_filename = QFileDialog::getOpenFileNames(this, "Open multimedia file", QDir::homePath(),
-                                                    tr("&video_files (*.avi *.mp4 *.mpg *.gif);; Audio files (*.waw *.mp3 *.flac)"));
+                                                    tr("&video_files (*.avi *.mp4 *.mpg *.gif, *.ogv);; Audio files (*.waw *.mp3 *.flac)"));
     loadPlaylist(list_filename);
 }
 
