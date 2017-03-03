@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include <QWidget>
+#include <QMediaPlayer>
 
 class Player : public QWidget
 {
