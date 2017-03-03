@@ -3,6 +3,8 @@
 #include <QPushButton>
 #include <QFileDialog>
 
+#include <QVideoWidget>
+
 Player::Player(QWidget *parent)
     : QWidget(parent)
 {
@@ -27,6 +29,19 @@ void Player::init()
     m_chooseFileBtn = new QPushButton();
     m_reduceBtn = new QPushButton();
     m_exitBtn = new QPushButton();
+
+    m_videoDisplay = new QVideoWidget();
+
+
+    //TODO REMEMBER TO ADD videoWidget
+    //layout->addWidget(m_videoDisplay);
+
+   //output
+   m_mediaPlayer->setVideoOutput(m_videoDisplay);
+
+   //TODO TO SHOW VIDEO
+   m_videoDisplay->show();
+
 }
 
 void Player::handle()
