@@ -11,6 +11,8 @@ class Player : public QWidget
 public:
     Player(QWidget *parent = 0);
     ~Player();
+    void init();
+    void handle();
 };
 
 #endif // PLAYER_H
