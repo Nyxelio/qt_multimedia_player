@@ -9,6 +9,7 @@ class QMediaPlayer;
 class QVideoWidget;
 class QVBoxLayout;
 class QHBoxLayout;
+class QSlider;
 
 class Player : public QWidget
 {
@@ -27,6 +28,7 @@ private :
     QPointer<QPushButton> m_startPauseBtn, m_stopBtn, m_nextBtn, m_prevBtn, m_chooseFileBtn, m_reduceBtn, m_exitBtn;
     QPointer<QPushButton> m_fullscreenBtn;
     QPointer<QVideoWidget> m_videoDisplay;
+    QPointer<QSlider> m_slider;
     bool m_fullscreenStatus;
 
 private slots:
@@ -36,6 +38,9 @@ private slots:
     void reduceClick();
     void closeClick();
     void toggleFullscreen();
+    void positionChanged(int position);
+    void durationChanged(int duration);
+    void setPosition(int position);
 
 protected slots:
     void chooseFile();
