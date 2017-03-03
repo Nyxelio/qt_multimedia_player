@@ -14,10 +14,14 @@ void CloseButton::paintEvent(QPaintEvent *) {
     painter.setRenderHint(QPainter::Antialiasing);
     painter.translate(QPointF(width() / 2, height() / 2));
 
+    QRadialGradient radialGradient(QPointF(0, 0), 60);
+    radialGradient.setColorAt(0, QColor(255,0,0));
+    radialGradient.setColorAt(1, QColor(255,200,200));
+
     QPen pen(QColor(200, 200, 200));
     pen.setWidth(2);
     painter.setPen(pen);
-    painter.setBrush(QBrush(QColor(255, 0, 0)));
+    painter.setBrush(radialGradient);
 
     static const QPointF pointsForCloseOne[4] = {
         QPointF(-5.0, -2.5),
