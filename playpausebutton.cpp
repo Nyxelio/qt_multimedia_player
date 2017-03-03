@@ -2,7 +2,6 @@
 #include <QPainter>
 #include <QColor>
 #include <QMouseEvent>
-#include <QtDebug>
 #include <QtCore>
 
 PlayPauseButton::PlayPauseButton(QWidget *parent) : QPushButton(parent) {
