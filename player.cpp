@@ -26,8 +26,8 @@ void Player::init()
     m_nextBtn = new QPushButton();
     m_prevBtn = new QPushButton();
     m_chooseFileBtn = new QPushButton("Open files");
-    m_reduceBtn = new QPushButton();
-    m_exitBtn = new QPushButton();
+    m_reduceBtn = new QPushButton("Reduce window");
+    m_exitBtn = new QPushButton("Close Window");
 
     m_videoDisplay = new QVideoWidget();
 
@@ -45,6 +45,8 @@ void Player::init()
    m_btnContainer->addWidget(m_startPauseBtn);
    m_btnContainer->addWidget(m_stopBtn);
    m_btnContainer->addWidget(m_chooseFileBtn);
+   m_btnContainer->addWidget(m_exitBtn);
+   m_btnContainer->addWidget(m_reduceBtn);
 
 }
 
@@ -55,8 +57,8 @@ void Player::handle()
     connect(m_nextBtn.data(), &QPushButton::clicked, this, &Player::nextClick);
     connect(m_prevBtn.data(), &QPushButton::clicked, this, &Player::previousClick);
     connect(m_chooseFileBtn.data(), &QPushButton::clicked, this, &Player::openFileClick);
-    connect(m_reduceBtn.data(), &QPushButton::clicked, this, &Player::reduceClick);
-    connect(m_exitBtn.data(), &QPushButton::clicked, this, &Player::closeClick);
+    connect(m_reduceBtn.data(), &QPushButton::clicked, this, &Player::lower);
+    connect(m_exitBtn.data(), &QPushButton::clicked, this, &Player::close);
 
     connect(m_fullscreenBtn.data(), &QPushButton::clicked, this, &Player::toggleFullscreen);
 }
@@ -74,16 +76,6 @@ void Player::openFileClick()
 {
     QStringList list_filename = QFileDialog::getOpenFileNames(this, "Open multimedia file", QDir::homePath(),
                                                     "Videos files (*.mp4 *.mpg *.gif);; Audio files (*.waw *.mp3 *.flac)");
-}
-
-void Player::reduceClick()
-{
-
-}
-
-void Player::closeClick()
-{
-
 }
 
 Player::~Player()

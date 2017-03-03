@@ -34,8 +34,6 @@ private slots:
     void nextClick();
     void previousClick();
     void openFileClick();
-    void reduceClick();
-    void closeClick();
     void toggleFullscreen();
 };
 
