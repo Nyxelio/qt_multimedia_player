@@ -9,6 +9,7 @@
 #include <QSlider>
 #include <QPainter>
 #include <QLabel>
+#include <QTime>
 
 Player::Player(QWidget *parent)
     : QWidget(parent)
@@ -49,15 +50,17 @@ void Player::init()
     // Add playlist component
     //m_mediaPlayer->setPlaylist(m_playlist);
 
+    QPointer<QHBoxLayout> sliderContainer = new QHBoxLayout();
     m_slider = new QSlider(Qt::Horizontal);
     m_slider->setRange(0,0);
-    m_durationPosition = new QLabel();
+    m_durationPosition = new QLabel("--:--");
     m_durationEnd = new QLabel("--:--");
+    sliderContainer->addWidget(m_durationPosition);
+    sliderContainer->addWidget(m_slider);
+    sliderContainer->addWidget(m_durationEnd);
 
-   //TODO REMEMBER TO ADD videoWidget
    m_videoPlaylistContainer->addWidget(m_videoDisplay);
-   m_videoPlaylistContainer->addWidget(m_slider);
-
+    m_videoPlaylistContainer->addLayout(sliderContainer);
    //output
    m_mediaPlayer->setVideoOutput(m_videoDisplay);
 
@@ -128,6 +131,7 @@ void Player::setPosition(int position){
 
 void Player::positionChanged(int position)
 {
+    m_durationPosition->setText(QTime::fromMSecsSinceStartOfDay(position).toString("hh:mm:ss"));
     m_slider->setValue(position);
 }
 
@@ -143,7 +147,8 @@ void Player::loadPlaylist(QStringList list)
 
 void Player::durationChanged(int duration)
 {
-    m_durationEnd = new QLabel("--:--");
+    m_durationEnd->setText(QTime::fromMSecsSinceStartOfDay(duration).toString("hh:mm:ss"));
+
     m_slider->setRange(0, duration);
 }
 
