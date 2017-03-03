@@ -102,9 +102,7 @@ void Player::openFileClick()
 {
     QStringList list_filename = QFileDialog::getOpenFileNames(this, "Open multimedia file", QDir::homePath(),
                                                     "Videos files (*.avi *.mp4 *.mpg *.gif);; Audio files (*.waw *.mp3 *.flac)");
-    qDebug() << list_filename;
-    m_mediaPlayer->setMedia(QUrl::fromLocalFile(list_filename[0]));
-    m_mediaPlayer->setVolume(50);
+    loadPlaylist(list_filename);
 }
 
 Player::~Player()
@@ -128,7 +126,7 @@ void Player::positionChanged(int position)
 void Player::loadPlaylist(QStringList list)
 {
     foreach (QString str, list) {
-        m_playlist->addMedia(QUrl(str));
+        m_playlist->addMedia(QUrl::fromLocalFile(str));
         m_playlist->setCurrentIndex(1);
     }
 }
