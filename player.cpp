@@ -1,4 +1,5 @@
 #include "player.h"
+#include "playpausebutton.h"
 
 Player::Player(QWidget *parent)
     : QWidget(parent)
@@ -14,9 +15,10 @@ Player::~Player()
 
 void Player::init()
 {
-//    setAttribute(Qt::WA_TranslucentBackground);
-//    setWindowFlags(Qt::FramelessWindowHint);
-    m_mediaPlayer = new QMediaPlayer;
+    setAttribute(Qt::WA_TranslucentBackground);
+    setWindowFlags(Qt::FramelessWindowHint);
+    setFixedSize(500, 400);
+    //m_mediaPlayer = new QMediaPlayer;
     m_startPauseBtn = new QPushButton();
     m_stopBtn = new QPushButton();
     m_nextBtn = new QPushButton();
