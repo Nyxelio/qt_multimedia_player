@@ -3,6 +3,7 @@
 #include <QPushButton>
 #include <QFileDialog>
 #include <QVideoWidget>
+#include <QMediaPlaylist>
 #include <QHBoxLayout>
 
 Player::Player(QWidget *parent)
@@ -28,6 +29,7 @@ void Player::init()
     m_reduceBtn = new QPushButton();
     m_exitBtn = new QPushButton();
 
+    m_playlist = new QMediaPlaylist;
     m_videoDisplay = new QVideoWidget();
 
     m_fullscreenStatus = false;
@@ -52,7 +54,6 @@ void Player::handle()
     connect(m_stopBtn.data(), &QPushButton::clicked, m_mediaPlayer.data(), &QMediaPlayer::stop);
     connect(m_nextBtn.data(), &QPushButton::clicked, this, &Player::nextClick);
     connect(m_prevBtn.data(), &QPushButton::clicked, this, &Player::previousClick);
-    connect(m_chooseFileBtn.data(), &QPushButton::clicked, this, &Player::openFileClick);
     connect(m_chooseFileBtn.data(), &QPushButton::clicked, this, &Player::chooseFile);
     connect(m_reduceBtn.data(), &QPushButton::clicked, this, &Player::reduceClick);
     connect(m_exitBtn.data(), &QPushButton::clicked, this, &Player::closeClick);
@@ -65,11 +66,6 @@ void Player::nextClick()
 }
 
 void Player::previousClick()
-{
-
-}
-
-void Player::openFileClick()
 {
 
 }
@@ -92,6 +88,11 @@ void Player::chooseFile() {
 
 //    QString filename = QFileDialog::getSaveFileName(this, "Save file", m_file_opened->fileName(),
 //                                                    "Text files (*.txt);; C++ files (*.cpp, *.hpp, *.h)" );
+
+}
+
+void Player::loadPlaylist(List<QString>)
+{
 
 }
 
