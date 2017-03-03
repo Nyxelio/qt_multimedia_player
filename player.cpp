@@ -6,6 +6,7 @@
 #include <QVideoWidget>
 #include <QMediaPlaylist>
 #include <QHBoxLayout>
+#include <QSlider>
 
 
 Player::Player(QWidget *parent)
@@ -28,8 +29,8 @@ void Player::init()
     m_nextBtn = new QPushButton();
     m_prevBtn = new QPushButton();
     m_chooseFileBtn = new QPushButton("Open files");
-    m_reduceBtn = new QPushButton();
-    m_exitBtn = new QPushButton();
+    m_reduceBtn = new QPushButton("Reduce window");
+    m_exitBtn = new QPushButton("Close Window");
 
     m_playlist = new QMediaPlaylist;
 
@@ -40,6 +41,8 @@ void Player::init()
     // Add playlist component
     m_mediaPlayer->setPlaylist(m_playlist);
 
+    m_slider = new QSlider(Qt::Horizontal);
+    m_slider->setRange(0,0);
     //TODO REMEMBER TO ADD videoWidget
     m_videoPlaylistContainer->addWidget(m_videoDisplay);
 
@@ -52,6 +55,11 @@ void Player::init()
    m_btnContainer->addWidget(m_startPauseBtn);
    m_btnContainer->addWidget(m_stopBtn);
    m_btnContainer->addWidget(m_chooseFileBtn);
+   m_btnContainer->addWidget(m_exitBtn);
+   m_btnContainer->addWidget(m_reduceBtn);
+
+   //TODO REMEMBER TO ADD slider
+   m_btnContainer->addWidget(m_slider);
 
 
    m_vContainer->addLayout(m_videoPlaylistContainer);
@@ -65,10 +73,17 @@ void Player::handle()
     connect(m_nextBtn.data(), &QPushButton::clicked, this, &Player::nextClick);
     connect(m_prevBtn.data(), &QPushButton::clicked, this, &Player::previousClick);
     connect(m_chooseFileBtn.data(), &QPushButton::clicked, this, &Player::openFileClick);
-    connect(m_reduceBtn.data(), &QPushButton::clicked, this, &Player::reduceClick);
-    connect(m_exitBtn.data(), &QPushButton::clicked, this, &Player::closeClick);
+    connect(m_reduceBtn.data(), &QPushButton::clicked, this, &Player::lower);
+    connect(m_exitBtn.data(), &QPushButton::clicked, this, &Player::close);
 
     connect(m_fullscreenBtn.data(), &QPushButton::clicked, this, &Player::toggleFullscreen);
+
+    connect(m_slider, &QSlider::sliderMoved, this, &Player::setPosition);
+    connect(m_slider, &QSlider::sliderMoved, this, &Player::setPosition);
+
+    connect(m_mediaPlayer, &QMediaPlayer::positionChanged, this, &Player::positionChanged);
+    connect(m_mediaPlayer, &QMediaPlayer::durationChanged, this, &Player::durationChanged);
+
 }
 void Player::nextClick()
 {
@@ -86,18 +101,22 @@ void Player::openFileClick()
                                                     "Videos files (*.avi *.mp4 *.mpg *.gif);; Audio files (*.waw *.mp3 *.flac)");
 }
 
-void Player::reduceClick()
-{
-
-}
-
-void Player::closeClick()
-{
-
-}
-
 Player::~Player()
 {
+}
+
+void Player::toggleFullscreen() {
+    m_fullscreenStatus = !m_fullscreenStatus;
+    m_videoDisplay->setFullScreen(m_fullscreenStatus);
+}
+
+void Player::setPosition(int position){
+    m_mediaPlayer->setPosition(position);
+}
+
+void Player::positionChanged(int position)
+{
+    m_slider->setValue(position);
 }
 
 void Player::loadPlaylist(QStringList list)
@@ -108,7 +127,7 @@ void Player::loadPlaylist(QStringList list)
     }
 }
 
-void Player::toggleFullscreen() {
-    m_fullscreenStatus = !m_fullscreenStatus;
-    m_videoDisplay->setFullScreen(m_fullscreenStatus);
+void Player::durationChanged(int duration)
+{
+    m_slider->setRange(0, duration);
 }
