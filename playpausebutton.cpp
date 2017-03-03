@@ -2,7 +2,6 @@
 #include <QPainter>
 #include <QColor>
 #include <QMouseEvent>
-#include <QtDebug>
 #include <QtCore>
 
 PlayPauseButton::PlayPauseButton(QWidget *parent) : QPushButton(parent) {
@@ -31,6 +30,9 @@ void PlayPauseButton::paintEvent(QPaintEvent *) {
     painter.drawEllipse(QRectF(-40, -40, 80, 80));
 
     painter.setBrush(QBrush(QColor(200, 200, 200)));
+
+    pen.setWidth(1);
+    painter.setPen(pen);
 
     if (!isActive) {
         painter.drawPolygon(pointsForPlay, 3);

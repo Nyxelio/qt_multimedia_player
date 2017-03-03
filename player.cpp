@@ -7,8 +7,9 @@
 #include <QMediaPlaylist>
 #include <QHBoxLayout>
 #include <QSlider>
+#include <QPainter>
 #include <QLabel>
-
+#include <QTime>
 
 Player::Player(QWidget *parent)
     : QWidget(parent)
@@ -22,19 +23,23 @@ void Player::init()
     setAttribute(Qt::WA_TranslucentBackground);
     setWindowFlags(Qt::FramelessWindowHint);
     setFixedSize(500, 500);
-    m_vContainer = new QVBoxLayout(this);
-    m_mediaPlayer = new QMediaPlayer(this);
-    m_btnContainer = new QHBoxLayout();
-    m_startPauseBtn = new PlayPauseButton();
-    //m_startPauseBtn = new PlayPauseButton(this);
-    //m_startPauseBtn->move(QPoint(0, 400));
-    m_stopBtn = new QPushButton("stop");
-    m_nextBtn = new QPushButton(">>");
-    m_prevBtn = new QPushButton("<<");
+    //m_vContainer = new QVBoxLayout(this);
+    //m_mediaPlayer = new QMediaPlayer(this);
+    //m_btnContainer = new QHBoxLayout();
+    //m_startPauseBtn = new PlayPauseButton();
+    m_startPauseBtn = new PlayPauseButton(this);
+    m_startPauseBtn->move(QPoint(0, 400));
+    m_prevBtn = new PreviousButton(this);
+    m_prevBtn->move(QPoint(100, 425));
+    m_stopBtn = new StopButton(this);
+    m_stopBtn->move(QPoint(150, 425));
+    m_nextBtn = new NextButton(this);
+    m_nextBtn->move(200, 425);
+    /*
     m_chooseFileBtn = new QPushButton("Open files");
     m_reduceBtn = new QPushButton("Reduce window");
-    m_exitBtn = new QPushButton("Close Window");
-    m_videoPlaylistContainer = new QVBoxLayout();
+    m_exitBtn = new QPushButton("Close Window");*/
+    /*m_videoPlaylistContainer = new QHBoxLayout();
 
     m_playlist = new QMediaPlaylist;
 
@@ -45,15 +50,17 @@ void Player::init()
     // Add playlist component
     //m_mediaPlayer->setPlaylist(m_playlist);
 
+    QPointer<QHBoxLayout> sliderContainer = new QHBoxLayout();
     m_slider = new QSlider(Qt::Horizontal);
     m_slider->setRange(0,0);
-    m_durationPosition = new QLabel();
+    m_durationPosition = new QLabel("--:--");
     m_durationEnd = new QLabel("--:--");
+    sliderContainer->addWidget(m_durationPosition);
+    sliderContainer->addWidget(m_slider);
+    sliderContainer->addWidget(m_durationEnd);
 
-   //TODO REMEMBER TO ADD videoWidget
    m_videoPlaylistContainer->addWidget(m_videoDisplay);
-   m_videoPlaylistContainer->addWidget(m_slider);
-
+    m_videoPlaylistContainer->addLayout(sliderContainer);
    //output
    m_mediaPlayer->setVideoOutput(m_videoDisplay);
 
@@ -70,13 +77,12 @@ void Player::init()
 
 
    m_vContainer->addLayout(m_videoPlaylistContainer);
-   m_vContainer->addLayout(m_btnContainer);
-
+   m_vContainer->addLayout(m_btnContainer);*/
 }
 
 void Player::handle()
 {
-    connect(m_startPauseBtn.data(), &QPushButton::clicked, this, &Player::playPauseClick);
+    /*connect(m_startPauseBtn.data(), &QPushButton::clicked, this, &Player::playPauseClick);
     connect(m_stopBtn.data(), &QPushButton::clicked, m_mediaPlayer.data(), &QMediaPlayer::stop);
     connect(m_nextBtn.data(), &QPushButton::clicked, this, &Player::nextClick);
     connect(m_prevBtn.data(), &QPushButton::clicked, this, &Player::previousClick);
@@ -89,7 +95,7 @@ void Player::handle()
     connect(m_slider, &QSlider::sliderMoved, this, &Player::setPosition);
 
     connect(m_mediaPlayer, &QMediaPlayer::positionChanged, this, &Player::positionChanged);
-    connect(m_mediaPlayer, &QMediaPlayer::durationChanged, this, &Player::durationChanged);
+    connect(m_mediaPlayer, &QMediaPlayer::durationChanged, this, &Player::durationChanged);*/
 
 }
 void Player::nextClick()
@@ -125,6 +131,7 @@ void Player::setPosition(int position){
 
 void Player::positionChanged(int position)
 {
+    m_durationPosition->setText(QTime::fromMSecsSinceStartOfDay(position).toString("hh:mm:ss"));
     m_slider->setValue(position);
 }
 
@@ -140,7 +147,8 @@ void Player::loadPlaylist(QStringList list)
 
 void Player::durationChanged(int duration)
 {
-    m_durationEnd = new QLabel("--:--");
+    m_durationEnd->setText(QTime::fromMSecsSinceStartOfDay(duration).toString("hh:mm:ss"));
+
     m_slider->setRange(0, duration);
 }
 
@@ -152,4 +160,16 @@ void Player::playPauseClick()
     } else {
         m_mediaPlayer->play();
     }
+}
+
+void Player::paintEvent(QPaintEvent *) {
+
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+
+    QPen pen(QColor(0, 0, 0));
+    painter.setPen(pen);
+    painter.setBrush(QBrush(QColor(0, 0, 0)));
+
+    painter.drawRect(QRect(50, 0, 450, 450));
 }

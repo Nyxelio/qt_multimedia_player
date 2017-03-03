@@ -4,6 +4,9 @@
 #include <QWidget>
 #include <QPointer>
 #include "playpausebutton.h"
+#include "stopbutton.h"
+#include "previousbutton.h"
+#include "nextbutton.h"
 
 class QPushButton;
 class QMediaPlayer;
@@ -31,7 +34,10 @@ private :
     QPointer<QHBoxLayout> m_btnContainer;
     QPointer<QMediaPlayer> m_mediaPlayer;
     QPointer<QMediaPlaylist> m_playlist;
-    QPointer<QPushButton> m_stopBtn, m_nextBtn, m_prevBtn, m_chooseFileBtn, m_reduceBtn, m_exitBtn;
+    QPointer<QPushButton> m_chooseFileBtn, m_reduceBtn, m_exitBtn;
+    QPointer<PreviousButton> m_prevBtn;
+    QPointer<NextButton> m_nextBtn;
+    QPointer<StopButton> m_stopBtn;
     QPointer<PlayPauseButton> m_startPauseBtn;
     QPointer<QPushButton> m_fullscreenBtn;
     QPointer<QVideoWidget> m_videoDisplay;
@@ -50,6 +56,9 @@ private slots:
     void durationChanged(int duration);
     void setPosition(int position);
     void playPauseClick();
+
+protected:
+    void paintEvent(QPaintEvent *event) override;
 };
 
 #endif // PLAYER_H
