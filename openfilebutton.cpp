@@ -10,6 +10,13 @@ OpenFileButton::OpenFileButton(QWidget *parent) : QPushButton(parent) {
 }
 
 void OpenFileButton::paintEvent(QPaintEvent *) {
+
+    static const QPointF pointsForOpenFile[3] = {
+        QPointF(0.0, -12.0),
+        QPointF(10.0, -2.0),
+        QPointF(-10.0, -2.0)
+    };
+
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
     painter.translate(QPointF(width() / 2, height() / 2));
@@ -26,17 +33,18 @@ void OpenFileButton::paintEvent(QPaintEvent *) {
 
     painter.setBrush(QBrush(QColor(200, 200, 200)));
 
-    painter.drawRect(QRect(-8, -8, 16, 16));
+    painter.drawPolygon(pointsForOpenFile, 3);
+    painter.drawRect(QRect(-10.0, 2.0, 20.0, 8.0));
 }
 
 void OpenFileButton::mousePressEvent(QMouseEvent *e) {
-    if (qSqrt(qPow(e->x() - 50, 2) + qPow(e->y() - 50, 2)) < 20) {
+    if (qSqrt(qPow(e->x() - 25, 2) + qPow(e->y() - 25, 2)) < 20) {
         insideButton = true;
     }
 }
 
 void OpenFileButton::mouseReleaseEvent(QMouseEvent *e) {
-    if (insideButton && (qSqrt(qPow(e->x() - 50, 2) + qPow(e->y() - 50, 2)) < 20)) {
+    if (insideButton && (qSqrt(qPow(e->x() - 25, 2) + qPow(e->y() - 25, 2)) < 20)) {
         emit(clicked(true));
         update();
     }

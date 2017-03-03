@@ -7,6 +7,9 @@
 #include "stopbutton.h"
 #include "previousbutton.h"
 #include "nextbutton.h"
+#include "openfilebutton.h"
+#include "closebutton.h"
+#include "reducebutton.h"
 
 class QPushButton;
 class QMediaPlayer;
@@ -34,7 +37,9 @@ private :
     QPointer<QHBoxLayout> m_btnContainer;
     QPointer<QMediaPlayer> m_mediaPlayer;
     QPointer<QMediaPlaylist> m_playlist;
-    QPointer<QPushButton> m_chooseFileBtn, m_reduceBtn, m_exitBtn;
+    QPointer<ReduceButton> m_reduceBtn;
+    QPointer<CloseButton> m_exitBtn;
+    QPointer<OpenFileButton> m_chooseFileBtn;
     QPointer<PreviousButton> m_prevBtn;
     QPointer<NextButton> m_nextBtn;
     QPointer<StopButton> m_stopBtn;
@@ -56,6 +61,7 @@ private slots:
     void durationChanged(int duration);
     void setPosition(int position);
     void playPauseClick();
+    void stopClick();
 
 protected:
     void paintEvent(QPaintEvent *event) override;

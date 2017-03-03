@@ -43,13 +43,13 @@ void NextButton::paintEvent(QPaintEvent *) {
 }
 
 void NextButton::mousePressEvent(QMouseEvent *e) {
-    if (qSqrt(qPow(e->x() - 50, 2) + qPow(e->y() - 50, 2)) < 20) {
+    if (qSqrt(qPow(e->x() - 25, 2) + qPow(e->y() - 25, 2)) < 20) {
         insideButton = true;
     }
 }
 
 void NextButton::mouseReleaseEvent(QMouseEvent *e) {
-    if (insideButton && (qSqrt(qPow(e->x() - 50, 2) + qPow(e->y() - 50, 2)) < 20)) {
+    if (insideButton && (qSqrt(qPow(e->x() - 25, 2) + qPow(e->y() - 25, 2)) < 20)) {
         emit(clicked(true));
         update();
     }

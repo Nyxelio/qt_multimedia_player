@@ -35,10 +35,12 @@ void Player::init()
     m_stopBtn->move(QPoint(150, 425));
     m_nextBtn = new NextButton(this);
     m_nextBtn->move(200, 425);
-    /*
-    m_chooseFileBtn = new QPushButton("Open files");
-    m_reduceBtn = new QPushButton("Reduce window");
-    m_exitBtn = new QPushButton("Close Window");*/
+    m_chooseFileBtn = new OpenFileButton(this);
+    m_chooseFileBtn->move(QPoint(250, 425));
+    m_reduceBtn = new ReduceButton(this);
+    m_reduceBtn->move(QPoint(440, 0));
+    m_exitBtn = new CloseButton(this);
+    m_exitBtn->move(QPoint(470, 0));
     /*m_videoPlaylistContainer = new QHBoxLayout();
 
     m_playlist = new QMediaPlaylist;
@@ -82,15 +84,15 @@ void Player::init()
 
 void Player::handle()
 {
-    /*connect(m_startPauseBtn.data(), &QPushButton::clicked, this, &Player::playPauseClick);
-    connect(m_stopBtn.data(), &QPushButton::clicked, m_mediaPlayer.data(), &QMediaPlayer::stop);
-    connect(m_nextBtn.data(), &QPushButton::clicked, this, &Player::nextClick);
-    connect(m_prevBtn.data(), &QPushButton::clicked, this, &Player::previousClick);
+    //connect(m_startPauseBtn.data(), &QPushButton::clicked, this, &Player::playPauseClick);
+    //connect(m_stopBtn.data(), &QPushButton::clicked, this, &Player::stop);
+    //connect(m_nextBtn.data(), &QPushButton::clicked, this, &Player::nextClick);
+    //connect(m_prevBtn.data(), &QPushButton::clicked, this, &Player::previousClick);
     connect(m_chooseFileBtn.data(), &QPushButton::clicked, this, &Player::openFileClick);
     connect(m_reduceBtn.data(), &QPushButton::clicked, this, &Player::lower);
     connect(m_exitBtn.data(), &QPushButton::clicked, this, &Player::close);
 
-    connect(m_fullscreenBtn.data(), &QPushButton::clicked, this, &Player::toggleFullscreen);
+    /*connect(m_fullscreenBtn.data(), &QPushButton::clicked, this, &Player::toggleFullscreen);
 
     connect(m_slider, &QSlider::sliderMoved, this, &Player::setPosition);
 
@@ -101,6 +103,11 @@ void Player::handle()
 void Player::nextClick()
 {
     m_playlist->setCurrentIndex(m_playlist->currentIndex()+1);
+}
+
+void Player::stopClick()
+{
+    m_mediaPlayer->stop();
 }
 
 void Player::previousClick()
@@ -173,5 +180,5 @@ void Player::paintEvent(QPaintEvent *) {
     painter.setPen(pen);
     painter.setBrush(QBrush(QColor(0, 0, 0)));
 
-    painter.drawRect(QRect(50, 0, 450, 450));
+    painter.drawRect(QRect(50, 15, 435, 435));
 }
