@@ -1,4 +1,7 @@
 #include "player.h"
+#include <QMediaPlayer>
+#include <QPushButton>
+#include <QFileDialog>
 
 Player::Player(QWidget *parent)
     : QWidget(parent)
@@ -28,5 +31,13 @@ void Player::init()
 
 void Player::handle()
 {
+    QObject::connect(m_chooseFileBtn, &QPushButton::clicked, this, &Player::chooseFile);
+}
 
+void Player::chooseFile() {
+
+//    QString filename = QFileDialog::getSaveFileName(this, "Save file", m_file_opened->fileName(),
+//                                                    "Text files (*.txt);; C++ files (*.cpp, *.hpp, *.h)" );
+
+//    QString filename = QFileDialog::getOpenFileName(this, tr("Open multimedia file", "/home", tr("")))
 }
