@@ -51,3 +51,5 @@ RESOURCES += \
 DISTFILES += \
     lightStyle.qss \
     darkStyle.qss
+
+TRANSLATIONS = languages/appli_fr.ts languages/appli_en.ts

@@ -118,8 +118,7 @@ void Player::previousClick()
 void Player::openFileClick()
 {
     QStringList list_filename = QFileDialog::getOpenFileNames(this, "Open multimedia file", QDir::homePath(),
-                    "Videos files (*.avi *.mp4 *.mpg *.gif, *.ogv);; Audio files (*.waw *.mp3 *.flac, *.ogg)");
-
+                                                    tr("&video_files (*.avi *.mp4 *.mpg *.gif);; Audio files (*.waw *.mp3 *.flac)"));
     loadPlaylist(list_filename);
 }
 
@@ -164,10 +163,8 @@ void Player::playPauseClick()
 
     if (m_startPauseBtn->isActive) {
         m_mediaPlayer->pause();
-        qDebug() << "1";
     } else {
         m_mediaPlayer->play();
-        qDebug() << "2";
     }
 }
 
